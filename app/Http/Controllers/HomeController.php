@@ -28,8 +28,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-		$exibir_filmes = $this->movies->select()->get();
-        return view('home')->with( [ "exibir_filmes" => $exibir_filmes ] );
+		if(Auth::check() == true ){
+			$exibir_filmes = $this->movies->select()->get();
+			return view('home')->with( [ "exibir_filmes" => $exibir_filmes ] );
+		}else{
+			return view('welcome');
+		}
     }
 	
 	public function detalhes()
